@@ -36,10 +36,10 @@ BEGIN {
     }
 
     # automatic links
-    if(match($0, /<(http[s]?:\/\/.*)>/)) {
-        link = substr($0, RSTART+1, RLENGTH-2)
-        s = sprintf("<a href=%s>%s</a>", link, link)
-        gsub(/<(http[s]?:\/\/.*)>/, s)
+    if(match($0, /(http[s]?:\/\/.*)/)) {
+        link = substr($0, RSTART, RLENGTH)
+        s = sprintf("<a href=\"%s\">%s</a>", link, link)
+        gsub(/(http[s]?:\/\/.*)/, s)
     }
 
     # automatic mailto links
@@ -58,6 +58,8 @@ BEGIN {
         s = sprintf("<a href=\"%s\">%s</a>", link, text)
         sub(/\[[^\]]*\]\([^\)]*\)/, s)
     }
+
+    # in-line imgs
 
     # close code blocks
     if(! match($0, /^    /)) {

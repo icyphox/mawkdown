@@ -6,8 +6,8 @@ things like tables etc.
 
 Here's what's been done so far:
 
-- automatic links <https://example.com>
-- automatic emails <x@abc.com>
+- automatic links: https://example.com
+- automatic emails: <x@abc.com>
 - in-line formatting: *bold*, _italics_, `code`
 - code blocks:
 
