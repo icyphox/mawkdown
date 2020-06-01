@@ -36,10 +36,10 @@ BEGIN {
     }
 
     # automatic links
-    if(match($0, /(http[s]?:\/\/.*)/)) {
+    if(match($0, /<(http[s]?:\/\/.*)>/)) {
         link = substr($0, RSTART, RLENGTH)
         s = sprintf("<a href=\"%s\">%s</a>", link, link)
-        gsub(/(http[s]?:\/\/.*)/, s)
+        gsub(/<(http[s]?:\/\/.*)>/, s)
     }
 
     # automatic mailto links
@@ -47,6 +47,17 @@ BEGIN {
         link = substr($0, RSTART+1, RLENGTH-2)
         s = sprintf("<a href=mailto:%s>%s</a>", link, link)
         gsub(/<(.*@.*\..*)>/, s)
+    }
+
+
+    # match imgs before links
+    if(match($0, /\!\[[^\]]*\]\([^\)]*\)/)) {
+        match($0, /\!\[[^\]]*\]/)
+        alt = substr($0, RSTART+2, RLENGTH-3)
+        match($0, /\([^\)]*\)/)
+        link = substr($0, RSTART+1, RLENGTH-2)
+        s = sprintf("<img src=\"%s\" alt=\"%s\" />", link, alt)
+        sub(/\!\[[^\]]*\]\([^\)]*\)/, s)
     }
 
     # in-line links
@@ -58,8 +69,6 @@ BEGIN {
         s = sprintf("<a href=\"%s\">%s</a>", link, text)
         sub(/\[[^\]]*\]\([^\)]*\)/, s)
     }
-
-    # in-line imgs
 
     # close code blocks
     if(! match($0, /^    /)) {

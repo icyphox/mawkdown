@@ -17,8 +17,8 @@ Here's what's been done so far:
 - headers: #, ## and so on
 - blockquotes: > text
 - links: [adsf](https://asdf.com)
+- images: ![alt text](https://some.com/img.png)
 
 What's being worked on:
 
-- images: ![alt text](https://some.com/img.png)
 - footnotes: [^text]
