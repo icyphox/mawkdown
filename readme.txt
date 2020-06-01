@@ -16,9 +16,9 @@ Here's what's been done so far:
 - ordered and unordered lists
 - headers: #, ## and so on
 - blockquotes: > text
+- links: [adsf](https://asdf.com)
 
 What's being worked on:
 
-- links: [adsf](https://asdf.com)
 - images: ![alt text](https://some.com/img.png)
 - footnotes: [^text]

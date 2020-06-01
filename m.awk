@@ -14,6 +14,9 @@ BEGIN {
     gsub(/</, "\<");
     gsub(/>/, "\>");
 
+    # convert ' -- ' to em-dash
+    gsub(/ -- /, "&mdash;")
+
     # match italics
     if(match($0, /_(.*?)_/)) {
         s = sprintf("<em>%s</em>", substr($0, RSTART+1, RLENGTH-2))
@@ -46,6 +49,15 @@ BEGIN {
         gsub(/<(.*@.*\..*)>/, s)
     }
 
+    # in-line links
+    while(match($0, /\[[^\]]*\]\([^\)]*\)/)) {
+        match($0, /\[[^\]]*\]/)
+        text = substr($0, RSTART+1, RLENGTH-2)
+        match($0, /\([^\)]*\)/)
+        link = substr($0, RSTART+1, RLENGTH-2)
+        s = sprintf("<a href=\"%s\">%s</a>", link, text)
+        sub(/\[[^\]]*\]\([^\)]*\)/, s)
+    }
 
     # close code blocks
     if(! match($0, /^    /)) {
