@@ -1,6 +1,5 @@
 #!/usr/bin/awk -f
-# mawkdown - a subset of markdown written in awk
-# some code borrowed from @solene
+# 
 
 BEGIN {
     in_code = 0
@@ -56,7 +55,7 @@ BEGIN {
         }
     }
 
-    if (! match($0, /^>[[:space:]]/)) {
+    if (! match($0, /^> /)) {
         if(in_blockquote) {
             in_blockquote = 0
             printf "</blockquote>\n"
@@ -92,7 +91,7 @@ BEGIN {
             print substr($0, 5)
         }
     # match blockquote
-    } else if(match($0, /^>\s/)) {
+    } else if(match($0, /^> /)) {
         if(in_blockquote == 0) {
             in_blockquote = 1
             printf "<blockquote>\n"
@@ -125,7 +124,7 @@ BEGIN {
     } else {
         if(length($0) == 0 && in_paragraph == 1 && in_code == 0) {
             in_paragraph=0
-            printf "</p>"
+            printf "</p>\n"
         } # we are still in a paragraph
         if(length($0) != 0 && in_paragraph == 1) {
             print
